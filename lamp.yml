@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+  - name: Install Apache
+    yum: name=httpd state=latest
+  - name: Start the Apache server
+    service: name=httpd state=started
+  - name: Enable service httpd 
+    service: name=httpd enabled=yes
+  - name: Install firewalld
+    yum: name=firewalld state=latest
+  - name: Start firewalld
+    service: name=firewalld state=started
+  - name: Open firewall
+    command: firewall-cmd --add-service=http --permanent
